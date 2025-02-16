@@ -160,7 +160,7 @@ You will provide short responce to questions in 2 to 4 lines.
 
     except Exception as e:
         logger.error(f"Error generating AI response with RAG: {e}", exc_info=True)
-        return "An error occurred. Please try again in some time."
+        return "All our agents are busy. Please try again in some time."
 
 
 async def send_message(contact_id: str, message: str) -> dict:
