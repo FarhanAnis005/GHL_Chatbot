@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pyngrok
+nest_asyncio
+langchain-google-genai
+langchain-qdrant
+python-dotenv
+requests
