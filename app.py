@@ -184,7 +184,7 @@ async def send_message(contact_id: str, message: str) -> dict:
         return {"error": str(e)}
 
 
-@app.get("/health", methods=["GET", "HEAD"])
+@app.route("/health", methods=["GET", "HEAD"])
 async def health_check():
     return {"status": "ok", "message": "FastAPI server is running smoothly! 😊"}
 
