@@ -185,8 +185,8 @@ async def send_message(contact_id: str, message: str) -> dict:
 
 
 @app.route("/health", methods=["GET", "HEAD"])
-async def health_check():
-    return {"status": "ok", "message": "FastAPI server is running smoothly! 😊"}
+async def health_check(request: Request):
+    return Response(content='{"status": "ok", "message": "FastAPI is running smoothly"}', media_type="application/json")
 
 
 @app.post("/webhook")
