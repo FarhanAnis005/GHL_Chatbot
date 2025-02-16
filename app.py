@@ -250,4 +250,6 @@ async def handle_webhook(request: Request):
 # print(f"ngrok tunnel URL: {webhook_url}")
 
 # Run the FastAPI app
-uvicorn.run(app, host="0.0.0.0", port=8000)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
