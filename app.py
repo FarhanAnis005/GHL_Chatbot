@@ -183,6 +183,11 @@ async def send_message(contact_id: str, message: str) -> dict:
         return {"error": str(e)}
 
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "message": "FastAPI server is running smoothly!"}
+
+
 @app.post("/webhook")
 async def handle_webhook(request: Request):
     """Handles webhook events and ensures AI waits until contact info is provided."""
