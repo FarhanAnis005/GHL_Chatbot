@@ -134,6 +134,7 @@ async def generate_ai_response(convo: list) -> str:
         num_messages = min(3, len(convo))
         last_messages = [msg[1] for msg in convo[-num_messages:]]
         question = " ".join(last_messages)  # Merge user context
+        last_human_message = next((msg[1] for msg in reversed(convo) if msg[0] == "human"), None)
 
         # Retrieve relevant documents from the vector store
         results = vector_store.similarity_search(question, k=2)
@@ -148,7 +149,7 @@ Use the following relevant information to answer the user's query if helpful:
 {retrieved_context}
 
 User's query:
-{question}
+{last_human_message}
 
 You will provide short responce to questions in 2 to 4 lines.
 """
