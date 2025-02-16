@@ -187,7 +187,7 @@ async def send_message(contact_id: str, message: str) -> dict:
         logger.error(f"Error sending message: {e}", exc_info=True)
         return {"error": str(e)}
 
-
+@app.get("/")
 @app.route("/health", methods=["GET", "HEAD"])
 async def health_check(request: Request):
     return Response(content='{"status": "ok", "message": "FastAPI is running smoothly"}', media_type="application/json")
