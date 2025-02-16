@@ -95,7 +95,11 @@ async def get_conversation_messages(conversation_id: str) -> tuple:
 
         contact_info_missing = True  # Assume contact info is missing by default
 
-        for msg in reversed(data.get("messages", {}).get("messages", [])):
+        # Retrieve messages & limit to last 15 entries
+        messages = data.get("messages", {}).get("messages", [])
+        last_15_messages = messages[-15:]  # Get only the last 15 messages
+
+        for msg in reversed(last_15_messages):  # Reverse to keep correct chat order
             role = "ai" if msg["direction"] == "outbound" else "human"
             body = msg["body"]
 
