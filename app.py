@@ -186,7 +186,7 @@ async def send_message(contact_id: str, message: str) -> dict:
 
 @app.get("/health")
 async def health_check():
-    return {"status": "😊", "message": "FastAPI server is running smoothly!"}
+    return {"status": "ok", "message": "FastAPI server is running smoothly! 😊"}
 
 
 @app.post("/webhook")
