@@ -135,7 +135,7 @@ async def generate_ai_response(convo: list) -> str:
         temperature=0,
         max_tokens=None,
         timeout=None,
-        max_retries=2,
+        max_retries=2
     )
 
     try:
@@ -143,7 +143,6 @@ async def generate_ai_response(convo: list) -> str:
         num_messages = min(3, len(convo))
         last_messages = [msg[1] for msg in convo[-num_messages:]]
         question = " ".join(last_messages)  # Merge user context
-        last_human_message = next((msg[1] for msg in reversed(convo) if msg[0] == "human"), None)
 
         # Retrieve relevant documents from the vector store
         results = vector_store.similarity_search(question, k=2)
@@ -153,23 +152,27 @@ async def generate_ai_response(convo: list) -> str:
 
         # Prepare the AI input with knowledge + user's actual query
         prompt = f"""You are a helpful assistant for Bharat Giveaways.
-        
+
 Use the following relevant information to answer the user's query if helpful:
 {retrieved_context}
 
 User's query:
-{last_human_message}
+{question}
 
-You will provide short responce to questions in 2 to 4 lines.
+You will provide short responses to questions in 2 to 4 lines.
 """
 
-        # Call the LLM with the updated prompt
+        # Append the prompt as an assistant message to the convo history
+        convo.append(("ai", prompt))
+
+        # Call the LLM with the updated conversation
         ai_msg = llm.invoke(prompt)
+        
         return ai_msg.content
 
     except Exception as e:
         logger.error(f"Error generating AI response with RAG: {e}", exc_info=True)
-        return "All our agents are busy. Please try again in some time."
+        return "An error occurred. Please try again in some time."
 
 
 async def send_message(contact_id: str, message: str) -> dict:
