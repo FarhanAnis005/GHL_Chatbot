@@ -27,8 +27,13 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 conf.get_default().auth_token = os.getenv("CONF_AUTH_TOKEN")
 qdrant_api = os.getenv("QDRANT_API_KEY")
 qdrant_url = os.getenv("QDRANT_URL")
+GOOGLE_EMBEDDINGS_API_KEY = os.getenv("GOOGLE_EMBEDDINGS_API_KEY")
 
-embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/text-embedding-004",
+    api_key=GOOGLE_EMBEDDINGS_API_KEY
+)
 
 vector_store = QdrantVectorStore.from_existing_collection(
     embedding=embeddings,
